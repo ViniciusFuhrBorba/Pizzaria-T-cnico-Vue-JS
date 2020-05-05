@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Login</router-link> |
+      <router-link to="/a_bebida">Bebida</router-link> |
+      <router-link to="/a_cliente">Cliente</router-link> |
+      <router-link to="/a_pizza">Pizza</router-link> |
+      <router-link to="/c_cardapio">Cardápio</router-link> |
+      <router-link to="/c_historia">História</router-link> |
+      <router-link to="/c_info_cliente">Informações do Cliente</router-link> |
+      <router-link to="/cadastro_usuario">Cadastro do Usuário</router-link> |
+      <router-link to="/pedido">Pedido</router-link>
     </div>
     <router-view/>
   </div>
