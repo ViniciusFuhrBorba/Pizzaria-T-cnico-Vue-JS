@@ -1,0 +1,199 @@
+USE [master]
+GO
+/****** Object:  Database [pro_chef_web]    Script Date: 05/05/2020 17:45:10 ******/
+CREATE DATABASE [pro_chef_web]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'pro_chef_web', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\pro_chef_web.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'pro_chef_web_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\pro_chef_web_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [pro_chef_web] SET COMPATIBILITY_LEVEL = 140
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [pro_chef_web].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [pro_chef_web] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [pro_chef_web] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [pro_chef_web] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [pro_chef_web] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [pro_chef_web] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [pro_chef_web] SET  MULTI_USER 
+GO
+ALTER DATABASE [pro_chef_web] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [pro_chef_web] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [pro_chef_web] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [pro_chef_web] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [pro_chef_web] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [pro_chef_web] SET QUERY_STORE = OFF
+GO
+USE [pro_chef_web]
+GO
+/****** Object:  Table [dbo].[dados_bebida]    Script Date: 05/05/2020 17:45:12 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_bebida](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tipo] [varchar](50) NULL,
+	[sabor] [varchar](50) NULL,
+	[tamanho] [varchar](50) NULL,
+	[preco] [int] NULL,
+ CONSTRAINT [PK_dados_bebida] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dados_cliente]    Script Date: 05/05/2020 17:45:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_cliente](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[cpf] [varchar](50) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+	[telefone] [int] NOT NULL,
+	[usuario] [nchar](8) NOT NULL,
+	[senha] [nchar](8) NOT NULL,
+	[cep] [int] NOT NULL,
+	[logradouro] [varchar](50) NOT NULL,
+	[complemento] [varchar](50) NOT NULL,
+	[bairro] [varchar](50) NOT NULL,
+	[cidade] [varchar](50) NOT NULL,
+	[uf] [nchar](2) NOT NULL,
+ CONSTRAINT [PK_dados_cliente] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dados_pedido]    Script Date: 05/05/2020 17:45:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_pedido](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[observacoes] [varchar](50) NULL,
+	[borda] [varchar](50) NULL,
+	[preco_borda] [varchar](50) NULL,
+	[tamanho] [varchar](50) NULL,
+	[preco_tamanho] [varchar](50) NULL,
+	[forma_pagamento] [varchar](50) NULL,
+	[retirar_pizzaria] [bit] NULL,
+	[total] [varchar](50) NULL,
+ CONSTRAINT [PK_dados_pedido] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dados_pizza]    Script Date: 05/05/2020 17:45:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_pizza](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[sabor] [varchar](50) NULL,
+ CONSTRAINT [PK_dados_pizza] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[dados_bebida] ON 
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (1, N'Suco', N'Laranja', N'Normal', 7)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (2, N'Refrigerante', N'Coca', N'Media', 5)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (3, N'Caipirinha', N'Morango', N'Grande', 10)
+GO
+SET IDENTITY_INSERT [dbo].[dados_bebida] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_cliente] ON 
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (1, N'79644864972', N'Luana', 988984888, N'lulu1   ', N'4321    ', 89066305, N'rural', N'apartamento', N'velha', N'Gaspar', N'PR')
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (2, N'10950990679', N'Caroline', 33343938, N'carol1  ', N'1234    ', 89066305, N'centro', N'casa', N'testo salto', N'Blumenau', N'SC')
+GO
+SET IDENTITY_INSERT [dbo].[dados_cliente] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_pedido] ON 
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [preco_borda], [tamanho], [preco_tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (1, N'Muito bem feita por favor ', N'Doce', N'6,00', N'Grande', N'60,00', N'A vista', 1, N'60,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [preco_borda], [tamanho], [preco_tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (2, N'Bem temperado', N'Salgado', N'7,00', N'Media', N'55,00', N'Cartão de crédito', 0, N'55,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [preco_borda], [tamanho], [preco_tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (3, N'Meio crua', N'Doce', N'6,00', N'Pequena', N'40,00', N'Cartão de débito', 1, N'40,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [preco_borda], [tamanho], [preco_tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (4, N'Muito queijo', N'Salgado', N'7,00', N'Baby', N'30,00', N'A vista', 0, N'30,00')
+GO
+SET IDENTITY_INSERT [dbo].[dados_pedido] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza] ON 
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (1, N'Calabresa')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (2, N'Frango')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (3, N'Marguerita')
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza] OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [pro_chef_web] SET  READ_WRITE 
+GO
