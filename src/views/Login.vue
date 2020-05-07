@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <h1>Bem vindo a Tela de Login</h1>
     <navegador1/>
   </div>
 </template>
