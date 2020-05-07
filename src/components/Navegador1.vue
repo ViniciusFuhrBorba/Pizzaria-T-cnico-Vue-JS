@@ -10,23 +10,35 @@
     </div>
     <div id="caixa_login">
       <h4 class="text2" style="margin-left: 25px">Login: </h4>
-      <input class="inputs" type="text">
+      <input class="inputs" type="text" v-model="login"><br>
       <h4 class="text2" style="margin-left: 20px">Senha: </h4>
-      <input class="inputs" type="password">
+      <input class="inputs" type="password" v-model="senha"><br>
       <input id="cb" type="checkbox">
       <h5 class="text2">Mostrar a senha</h5>
-      <button id="botao">Entrar</button>
+      <button id="botao" @click="entrar">Entrar</button>
+      <h5 id="text3">Não possui cadastro? Cadastre-se já!</h5>
+      <button class="botaos">Cadastrar</button>
     </div>
-    <h5 id="text3">Não possui cadastro? Cadastre-se já!</h5>
-    <button class="botaos">Cadastrar</button>
  </div>
  
 </template>
 
 <script>
 export default {
-
-}
+    data: function(){
+      return {
+          login: '',
+          senha: ''
+      }
+    }, methods: {
+        entrar: function(){
+            if(this.login == "Vinicius" && this.senha == "123"){
+                console.log("Entrou")
+                this.$router.push({name: 'Pedido'})
+            }
+        }
+    }
+} 
 </script>
 
 <style>
