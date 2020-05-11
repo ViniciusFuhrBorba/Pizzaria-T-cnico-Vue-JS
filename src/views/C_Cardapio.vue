@@ -1,6 +1,5 @@
 <template>
   <div class="c-cardapio">
-    <h1>Bem vindo a Tela do Cardápio</h1>
     <navegador9/>
   </div>
 </template>

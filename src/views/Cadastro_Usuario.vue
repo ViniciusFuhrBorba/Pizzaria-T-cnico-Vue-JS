@@ -1,6 +1,5 @@
 <template>
   <div class="cadastro_usuario">
-    <h1>Bem vindo a Tela de Cadastro de Usuário</h1>
     <navegador2/>
   </div>
 </template>

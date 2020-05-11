@@ -1,6 +1,5 @@
 <template>
   <div class="a_cliente">
-    <h1>Bem vindo a Tela de Clientes</h1>
     <navegador3/>
   </div>
 </template>
