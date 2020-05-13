@@ -1,14 +1,8 @@
 <template>
  <div>
-<<<<<<< HEAD
-      <h4 style="margin-left: 25px">Login: </h4>
-      <input type="text" v-model="login">
-      <h4 style="margin-left: 20px">Senha: </h4>
-=======
       <h4>Login: </h4>
       <input type="text" v-model="login">
       <h4>Senha: </h4>
->>>>>>> 68fc66023f62d1f0b1c1a7d9506ff77c18d94d4c
       <input type="password" v-model="senha">
       <input type="checkbox">
       <h5>Mostrar a senha</h5>
