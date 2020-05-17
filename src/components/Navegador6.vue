@@ -66,7 +66,7 @@
 export default {
   methods: {
     finalizar_pedido (){
-
+      this.$router.push('Confirmar_Pedido')
     },
     pesquisar_cliente1(){
       
