@@ -26,8 +26,11 @@
 </template>
 
 <script>
+const axios = require('axios')
 export default {
-
+  mounted(){
+      axios.get("http://localhost:64088/api/Usuario").then(usuario => this.$store.state.pessoasBanco = usuario.data)
+  }
 }
 </script>
 

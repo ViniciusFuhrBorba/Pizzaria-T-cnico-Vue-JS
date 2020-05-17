@@ -59,7 +59,8 @@ export default {
   data: function() {
     return {
       pizza: [],
-      bebida: []
+      bebida: [],
+      usuario: []
     };
   },
   mounted() {
