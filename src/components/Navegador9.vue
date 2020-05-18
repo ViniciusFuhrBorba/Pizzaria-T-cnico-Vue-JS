@@ -49,8 +49,7 @@
       <h3>Tamanhos</h3>
 
       <h5>Observações: pedidos delivery ascrescentam R$ 10,00 no valor final do pedido.</h5>
-      <button @click="acrescentar_item">Acrescentar</button>
-      <button @click="finalizar">Finalizar</button>
+      
     </div>
   </div>
 </template>
@@ -72,15 +71,8 @@ export default {
     axios
       .get("http://localhost:64088/api/Bebida")
       .then(b => (this.bebida = b.data));
-  },
-  methods:{
-    acrescentar_item (){
-
-    },
-    finalizar(){
-      this.$router.push('/confirmar_pedido')
-    }
   }
+ 
 };
 </script>
 

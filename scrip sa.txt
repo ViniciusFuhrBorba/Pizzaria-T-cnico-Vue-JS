@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [pro_chef_web]    Script Date: 13/05/2020 15:32:16 ******/
+/****** Object:  Database [pro_chef_web]    Script Date: 18/05/2020 16:27:31 ******/
 CREATE DATABASE [pro_chef_web]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -77,7 +77,7 @@ ALTER DATABASE [pro_chef_web] SET QUERY_STORE = OFF
 GO
 USE [pro_chef_web]
 GO
-/****** Object:  Table [dbo].[dados_bebida]    Script Date: 13/05/2020 15:32:16 ******/
+/****** Object:  Table [dbo].[dados_bebida]    Script Date: 18/05/2020 16:27:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +94,22 @@ CREATE TABLE [dbo].[dados_bebida](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[dados_cliente]    Script Date: 13/05/2020 15:32:16 ******/
+/****** Object:  Table [dbo].[dados_borda]    Script Date: 18/05/2020 16:27:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_borda](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[borda] [varchar](50) NULL,
+	[preco_borda] [int] NULL,
+ CONSTRAINT [PK_dados_borda] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dados_cliente]    Script Date: 18/05/2020 16:27:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -111,14 +126,14 @@ CREATE TABLE [dbo].[dados_cliente](
 	[complemento] [varchar](50) NOT NULL,
 	[bairro] [varchar](50) NOT NULL,
 	[cidade] [varchar](50) NOT NULL,
-	[uf] [varchar](2) NOT NULL,
+	[uf] [nchar](2) NOT NULL,
  CONSTRAINT [PK_dados_cliente] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[dados_pedido]    Script Date: 13/05/2020 15:32:16 ******/
+/****** Object:  Table [dbo].[dados_pedido]    Script Date: 18/05/2020 16:27:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -127,9 +142,7 @@ CREATE TABLE [dbo].[dados_pedido](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[observacoes] [varchar](50) NULL,
 	[borda] [varchar](50) NULL,
-	[preco_borda] [varchar](50) NULL,
 	[tamanho] [varchar](50) NULL,
-	[preco_tamanho] [varchar](50) NULL,
 	[forma_pagamento] [varchar](50) NULL,
 	[retirar_pizzaria] [bit] NULL,
 	[total] [varchar](50) NULL,
@@ -139,7 +152,7 @@ CREATE TABLE [dbo].[dados_pedido](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[dados_pizza]    Script Date: 13/05/2020 15:32:16 ******/
+/****** Object:  Table [dbo].[dados_pizza]    Script Date: 18/05/2020 16:27:32 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -152,6 +165,131 @@ CREATE TABLE [dbo].[dados_pizza](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dados_pizza_tamanho]    Script Date: 18/05/2020 16:27:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dados_pizza_tamanho](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[tamanho] [varchar](50) NULL,
+	[preco_tamanho] [int] NULL,
+ CONSTRAINT [PK_dados_pizza_tamanho] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[dados_bebida] ON 
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (1, N'Suco', N'Laranja', N'Normal', 4)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (2, N'Refrigerante', N'Coca', N'Medio', 7)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (3, N'Caipirinha', N'Morango', N'Normal', 8)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (4, N'Cerveja', N'Pilsen', N'Grande', 10)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (5, N'Suco', N'Abacaxi c/ Hortelã', N'Medio', 6)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (6, N'Água', NULL, N'Normal', 3)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (7, N'Refrigerante', N'Guaraná', N'Normal', 5)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (8, N'Caipirinha', N'Limão', N'Grande', 12)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (9, N'Cerveja', N'IPA', N'Medio', 8)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (10, N'Suco', N'Uva', N'Medio', 6)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (11, N'Suco', N'Uva', N'Grande', 8)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (12, N'Caipirinha', N'Maracujá', N'Media', 10)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (13, N'Refrigerante', N'Pepsi', N'Grande', 9)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (14, N'Cerveja ', N'Itaipava', N'Normal', 6)
+GO
+INSERT [dbo].[dados_bebida] ([id], [tipo], [sabor], [tamanho], [preco]) VALUES (15, N'Água c/ gás', NULL, N'Medio', 6)
+GO
+SET IDENTITY_INSERT [dbo].[dados_bebida] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_borda] ON 
+GO
+INSERT [dbo].[dados_borda] ([id], [borda], [preco_borda]) VALUES (1, N'Chocolate Preto c/ morango', 5)
+GO
+INSERT [dbo].[dados_borda] ([id], [borda], [preco_borda]) VALUES (2, N'Chocolate Branco', 5)
+GO
+INSERT [dbo].[dados_borda] ([id], [borda], [preco_borda]) VALUES (3, N'Cheeder', 6)
+GO
+INSERT [dbo].[dados_borda] ([id], [borda], [preco_borda]) VALUES (4, N'Catupiry', 6)
+GO
+INSERT [dbo].[dados_borda] ([id], [borda], [preco_borda]) VALUES (5, N'', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[dados_borda] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_cliente] ON 
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (1, N'79644864972', N'Luana', 988984888, N'lulu1', N'4321', 89066305, N'Área Rural', N'Apartamento', N'Velha', N'Gaspar', N'PR')
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (2, N'10950990679', N'Caroline', 33343938, N'carol1', N'1234', 89066305, N'Centro', N'casa', N'testo salto', N'Blumenau', N'SC')
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (10, N'33333333333', N'Julia', 33345678, N'ju123', N'1000', 88985632, N'Área Rural', N'Casa', N'Vila Itopava', N'Blumenau', N'SC')
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (14, N'45758493948', N'Mayara', 33389090, N'may4546', N'0909', 89542636, N'Zona Sul', N'Casa', N'Testo Rega', N'Pomerode', N'SC')
+GO
+INSERT [dbo].[dados_cliente] ([id], [cpf], [nome], [telefone], [usuario], [senha], [cep], [logradouro], [complemento], [bairro], [cidade], [uf]) VALUES (15, N'43838382283', N'Borba', 91513195, N'vini10', N'1919', 89504939, N'Centro', N'Apartamento', N'Salto do Norte', N'Blumenau', N'SC')
+GO
+SET IDENTITY_INSERT [dbo].[dados_cliente] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_pedido] ON 
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (1, N'Muito bem feita por favor ', N'Chocolate Preto c/  Morango', N'Grande', N'A vista', 1, N'85,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (2, N'Bem temperado', N'Cheeder', N'Media', N'Cartão de crédito', 0, N'66,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (3, N'Meio crua', N'Chocolate Preto', N'Pequena', N'Cartão de débito', 1, N'55,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (4, N'Muito queijo', N'Chocolate Branco', N'Baby', N'A vista', 0, N'35,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (5, N'Bem assada', N'Catupiry', N'Exagerada', N'Vale Alimentação', 0, N'86,00')
+GO
+INSERT [dbo].[dados_pedido] ([id], [observacoes], [borda], [tamanho], [forma_pagamento], [retirar_pizzaria], [total]) VALUES (6, N'Com bastante molho', N'Cheeder', N'Grande', N'Cartão de débito', 1, N'86,00')
+GO
+SET IDENTITY_INSERT [dbo].[dados_pedido] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza] ON 
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (1, N'Calabresa')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (2, N'Frango')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (3, N'Marguerita')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (5, N'Strogonoff de frango')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (6, N'Strogonoff de carne')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (8, N'Portuguesa')
+GO
+INSERT [dbo].[dados_pizza] ([id], [sabor]) VALUES (9, N'Calabresa c/ Cebola')
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza] OFF
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza_tamanho] ON 
+GO
+INSERT [dbo].[dados_pizza_tamanho] ([id], [tamanho], [preco_tamanho]) VALUES (1, N'Exagerada', 80)
+GO
+INSERT [dbo].[dados_pizza_tamanho] ([id], [tamanho], [preco_tamanho]) VALUES (2, N'Grande', 70)
+GO
+INSERT [dbo].[dados_pizza_tamanho] ([id], [tamanho], [preco_tamanho]) VALUES (3, N'Media', 60)
+GO
+INSERT [dbo].[dados_pizza_tamanho] ([id], [tamanho], [preco_tamanho]) VALUES (4, N'Pequena', 40)
+GO
+INSERT [dbo].[dados_pizza_tamanho] ([id], [tamanho], [preco_tamanho]) VALUES (5, N'Baby', 30)
+GO
+SET IDENTITY_INSERT [dbo].[dados_pizza_tamanho] OFF
 GO
 USE [master]
 GO

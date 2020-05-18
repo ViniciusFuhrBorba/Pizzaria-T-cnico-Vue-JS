@@ -59,6 +59,8 @@
       <h5>Retirar na pizzaria</h5>
       <h4>Valor: </h4>
       <button @click="finalizar_pedido">Finalizar</button>
+      <button @click="acrescentar_item">Acrescentar</button>
+      
   </div>
 </template>
 
@@ -70,7 +72,11 @@ export default {
     },
     pesquisar_cliente1(){
       
+    },
+    acrescentar_item (){
+
     }
+    
   }
 }
 </script>

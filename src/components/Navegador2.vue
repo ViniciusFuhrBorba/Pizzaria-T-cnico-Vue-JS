@@ -33,6 +33,7 @@
 </template>
 
 <script>
+
 export default {
   methods: {
     navegar_login (){
