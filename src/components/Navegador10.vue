@@ -18,8 +18,7 @@
       <table>
         <thead>
           <tr>
-            <th>Tipo</th>
-            <th>Sabor</th>
+            <th>Bebida</th>
             <th>Tamanho</th>
           </tr>
         </thead>
