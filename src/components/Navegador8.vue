@@ -67,7 +67,7 @@ export default {
     carregar: function() {
       return this.$store.state.usuarioLogado;
     }
-  },
+  }
 };
 </script>
 

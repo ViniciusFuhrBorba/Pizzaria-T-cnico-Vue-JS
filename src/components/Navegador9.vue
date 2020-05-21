@@ -10,7 +10,7 @@
     <div>
       <div class="caixa-pizza">
         <h3>Pizzas</h3>
-        <table border="2px" class="table-pizza">
+        <table border="1px" class="table-pizza">
           <thead>
             <tr>
               <th>ID</th>
@@ -27,7 +27,7 @@
       </div>
       <div class="caixa-bebidas">
         <h3>Bebidas</h3>
-        <table border="2px" class="table-pizza">
+        <table border="1px" class="table-pizza">
           <thead>
             <tr>
               <th>ID</th>
@@ -48,7 +48,7 @@
       </div>
       <div class="caixa-bordas">
         <h3>Bordas</h3>
-        <table border="2px" class="table-bordas">
+        <table border="1px" class="table-bordas">
           <thead>
             <tr>
               <th>ID</th>
@@ -96,32 +96,42 @@ export default {
 </script>
 
 <style>
-.caixa-pizza{
-  border: 2px solid black;
-  height: table-pizza;
+.caixa-pizza {
+  height: 250px;
   width: 245px;
   position: absolute;
+  overflow-x: auto;
 }
-.caixa-bebidas{
-  border: 2px solid black;
-  height: table-pizza;
+.caixa-bebidas {
+  height: 250px;
   width: 310px;
   position: absolute;
   margin-left: 300px;
+  overflow-x: auto;
 }
-.caixa-bordas{
-border: 2px solid black;
-  height: table-bordas;
+.caixa-bordas {
+  height: 250px;
   width: 312px;
   position: absolute;
   margin-left: 660px;
+  overflow-x: auto;
 }
-h3{
+h3 {
   text-align: center;
 }
-h5{
+h5 {
   position: absolute;
   margin-top: 500px;
   margin-left: 260px;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 87, 87, 0.562);
+  border-radius: 10px;
 }
 </style>

@@ -27,6 +27,7 @@ export default {
       this.usuario.filter(u => {
         if(u.usuario == this.login && u.senha == this.senha){
             this.$store.state.usuarioLogado.push(u)
+            localStorage.setItem('usuarioLogado', JSON.stringify(u))
             this.$router.push('C_Historia')
         }
       })
