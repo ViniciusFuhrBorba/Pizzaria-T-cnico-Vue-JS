@@ -1,13 +1,11 @@
 <template>
   <div>
-    <router-link to="/a_cliente">Cliente</router-link>|
-    <router-link to="/a_pizza">Pizza</router-link>|
-    <router-link to="/a_bebida">Bebida</router-link>|
-    <router-link to="/pedido">Pedido</router-link>|
-    <router-link to="/c_historia">História</router-link>|
-    <router-link to="/c_info_cliente">Informações do Cliente</router-link>|
-    <router-link to="/c_cardapio">Cardápio</router-link>
-
+    <div v-if="this.verificar">
+      <Menu />
+    </div>
+    <div v-if="this.verificar2">
+      <menu-admin />
+    </div>
     <div v-for="(pessoa, index) in carregar" :key="index">
       <h3>Dados Pessoais</h3>
       <h4>Nome:</h4>
@@ -43,6 +41,8 @@
 </template>
 
 <script>
+import Menu from '../components/Menu.vue'
+import MenuAdmin from '../components/MenuAdmin.vue'
 export default {
   data: function() {
     return {
@@ -57,8 +57,13 @@ export default {
       bairro: "",
       cidade: "",
       uf: "",
-      numero: ""
+      numero: "",
+      verificar: false,
+      verificar2: false
     };
+  }, components: {
+    Menu,
+    MenuAdmin
   },
   methods: {
     alterar_cliente1() {}
@@ -67,6 +72,20 @@ export default {
     carregar: function() {
       return this.$store.state.usuarioLogado;
     }
+  }, mounted() {
+    if (this.$store.state.usuarioLogado != null) {
+      this.$store.state.usuarioLogado.splice(0)
+      var usuarioSession = sessionStorage.getItem("usuarioLogado");
+      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+    }
+    this.$store.state.usuarioLogado.filter(u => {
+      if (u.tipo_usuario == 1) {
+        this.verificar = true;
+      }
+      if (u.tipo_usuario == 2) {
+        this.verificar2 = true;
+      }
+    });
   }
 };
 </script>

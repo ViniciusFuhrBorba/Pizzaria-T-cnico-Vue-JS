@@ -10,7 +10,7 @@ import C_Info_Cliente from '../views/C_Info_Cliente.vue'
 import Cadastro_Usuario from '../views/Cadastro_Usuario.vue'
 import Pedido from '../views/Pedido.vue'
 import Confirmar_Pedido from '../views/Confirmar_Pedido.vue'
-
+import Entregas from '../views/Entregas.vue'
 
 Vue.use(VueRouter)
 
@@ -64,6 +64,10 @@ Vue.use(VueRouter)
     path: '/confirmar_pedido',
     name: 'Confirmar_Pedido',
     component: Confirmar_Pedido
+  },{
+    path: '/Entregas',
+    name: 'Entregas',
+    component: Entregas
   }
 ]
 

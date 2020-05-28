@@ -1,12 +1,11 @@
 <template>
   <div>
-    <router-link to="/a_cliente">Cliente</router-link>|
-    <router-link to="/a_pizza">Pizza</router-link>|
-    <router-link to="/a_bebida">Bebida</router-link>|
-    <router-link to="/pedido">Pedido</router-link>|
-    <router-link to="/c_historia">História</router-link>|
-    <router-link to="/c_info_cliente">Informações do Cliente</router-link>|
-    <router-link to="/c_cardapio">Cardápio</router-link>
+    <div v-if="this.verificar">
+      <Menu />
+    </div>
+    <div v-if="this.verificar2">
+      <menu-admin />
+    </div>
     <div>
       <h3>Dados Pessoais</h3>
       <h4>Nome:</h4>
@@ -48,6 +47,8 @@
 </template>
 
 <script>
+import Menu from "../components/Menu.vue";
+import MenuAdmin from "../components/MenuAdmin.vue";
 const axios = require("axios");
 export default {
   data: function() {
@@ -67,8 +68,14 @@ export default {
       cpfPesquisar: "",
       pegaId: "",
       pegaId2: "",
-      usuarioPesquisado: []
+      usuarioPesquisado: [],
+      verificar: false,
+      verificar2: false
     };
+  },
+  components: {
+    Menu,
+    MenuAdmin
   },
   methods: {
     pesquisar_cliente: function() {
@@ -107,41 +114,45 @@ export default {
       });
     },
     cadastrar_cliente() {
-      axios.post("http://localhost:64088/api/Usuario/", {
-        nome: this.nome,
-        cpf: this.cpf,
-        telefone: this.telefone,
-        usuario: this.usuario,
-        senha: this.senha,
-        cep: this.cep,
-        logradouro: this.logradouro,
-        complemento: this.complemento,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        uf: this.uf
-      }).then(u =>{
-        console.log(u.data)
-      });
+      axios
+        .post("http://localhost:64088/api/Usuario/", {
+          nome: this.nome,
+          cpf: this.cpf,
+          telefone: this.telefone,
+          usuario: this.usuario,
+          senha: this.senha,
+          cep: this.cep,
+          logradouro: this.logradouro,
+          complemento: this.complemento,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          uf: this.uf
+        })
+        .then(u => {
+          console.log(u.data);
+        });
     },
     alterar_cliente() {
       this.usuarioPesquisado.filter(u => {
         this.pegaId2 = u.id;
       });
-      axios.put("http://localhost:64088/api/Usuario/" + this.pegaId2, {
-        nome: this.nome,
-        cpf: this.cpf,
-        telefone: this.telefone,
-        usuario: this.usuario,
-        senha: this.senha,
-        cep: this.cep,
-        logradouro: this.logradouro,
-        complemento: this.complemento,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        uf: this.uf
-      }).then(u => {
-        console.log(u.data)
-      });
+      axios
+        .put("http://localhost:64088/api/Usuario/" + this.pegaId2, {
+          nome: this.nome,
+          cpf: this.cpf,
+          telefone: this.telefone,
+          usuario: this.usuario,
+          senha: this.senha,
+          cep: this.cep,
+          logradouro: this.logradouro,
+          complemento: this.complemento,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          uf: this.uf
+        })
+        .then(u => {
+          console.log(u.data);
+        });
     },
     excluir_cliente: function() {
       this.$store.state.usuarioLogado.filter(u => {
@@ -154,6 +165,22 @@ export default {
           console.log(u.data);
         });
     }
+  },
+  mounted() {
+    if (this.$store.state.usuarioLogado != null) {
+      this.$store.state.usuarioLogado.splice(0);
+      var usuarioSession = sessionStorage.getItem("usuarioLogado");
+      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+      console.log(this.$store.state.usuarioLogado);
+    }
+    this.$store.state.usuarioLogado.filter(u => {
+      if (u.tipo_usuario == 1) {
+        this.verificar = true;
+      }
+      if (u.tipo_usuario == 2) {
+        this.verificar2 = true;
+      }
+    });
   }
 };
 </script>

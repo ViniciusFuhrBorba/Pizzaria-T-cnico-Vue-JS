@@ -1,12 +1,11 @@
 <template>
   <div>
-    <router-link to="/a_cliente">Cliente</router-link>|
-    <router-link to="/a_pizza">Pizza</router-link>|
-    <router-link to="/a_bebida">Bebida</router-link>|
-    <router-link to="/pedido">Pedido</router-link>|
-    <router-link to="/c_historia">História</router-link>|
-    <router-link to="/c_info_cliente">Informações do Cliente</router-link>|
-    <router-link to="/c_cardapio">Cardápio</router-link>
+    <div v-show="this.verificar">
+      <Menu />
+    </div>
+    <div v-show="this.verificar2">
+      <menu-admin />
+    </div>
     <h3>Dados</h3>
     <h4>Bebida:</h4>
     <input type="text" v-model="bebida" />
@@ -28,6 +27,8 @@
 </template>
 
 <script>
+import Menu from '../components/Menu.vue'
+import MenuAdmin from '../components/MenuAdmin.vue'
 const axios = require("axios");
 export default {
   data: function() {
@@ -38,8 +39,13 @@ export default {
       preco: "",
       bebidasSel: 0,
       pegaID1: "",
-      pegaID2: ""
+      pegaID2: "",
+      verificar: false,
+      verificar2: false
     };
+  }, components: {
+    Menu,
+    MenuAdmin
   },
   methods: {
     pesquisar_bebida: function() {
@@ -99,6 +105,19 @@ export default {
     axios
       .get("http://localhost:64088/api/Bebida")
       .then(p => (this.bebidas = p.data));
+    if (this.$store.state.usuarioLogado != null) {
+      this.$store.state.usuarioLogado.splice(0)
+      var usuarioSession = sessionStorage.getItem("usuarioLogado");
+      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+    }
+    this.$store.state.usuarioLogado.filter(u => {
+      if (u.tipo_usuario == 1) {
+        this.verificar = true;
+      }
+      if (u.tipo_usuario == 2) {
+        this.verificar2 = true;
+      }
+    });
   },
   computed: {
     carregarCombo: function() {

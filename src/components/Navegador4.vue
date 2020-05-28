@@ -1,12 +1,11 @@
 <template>
   <div>
-    <router-link to="/a_cliente">Cliente</router-link>|
-    <router-link to="/a_pizza">Pizza</router-link>|
-    <router-link to="/a_bebida">Bebida</router-link>|
-    <router-link to="/pedido">Pedido</router-link>|
-    <router-link to="/c_historia">História</router-link>|
-    <router-link to="/c_info_cliente">Informações do Cliente</router-link>|
-    <router-link to="/c_cardapio">Cardápio</router-link>
+    <div v-if="this.verificar">
+      <Menu />
+    </div>
+    <div v-if="this.verificar2">
+      <menu-admin />
+    </div>
     <h3>Dados</h3>
     <h4>Sabor:</h4>
     <input type="text" v-model="saborPizza" />
@@ -24,6 +23,8 @@
 </template>
 
 <script>
+import Menu from '../components/Menu.vue'
+import MenuAdmin from '../components/MenuAdmin.vue'
 const axios = require("axios");
 export default {
   data: function() {
@@ -34,8 +35,13 @@ export default {
       pegaID: "",
       pegaID2: "",
       pizzaSel: 0,
-      saborPizza: ""
+      saborPizza: "",
+      verificar: false,
+      verificar2: false
     };
+  }, components: {
+    Menu,
+    MenuAdmin
   },
   methods: {
     pesquisar_pizza: function() {
@@ -52,6 +58,7 @@ export default {
         })
         .then(p => {
           console.log(p.data);
+          location.reload();
         });
     },
     alterar_pizza() {
@@ -66,6 +73,7 @@ export default {
         })
         .then(p => {
           console.log(p.data);
+          location.reload();
         });
     },
     excluir_pizza: function() {
@@ -79,6 +87,7 @@ export default {
         .then(u => {
           u.id == this.pegaID2;
           console.log(u.data);
+          location.reload();
         });
       this.saborPizza = "";
     }
@@ -87,6 +96,19 @@ export default {
     axios
       .get("http://localhost:64088/api/Pizza")
       .then(p => (this.pizzas = p.data));
+   if (this.$store.state.usuarioLogado != null) {
+      this.$store.state.usuarioLogado.splice(0)
+      var usuarioSession = sessionStorage.getItem("usuarioLogado");
+      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+    }
+    this.$store.state.usuarioLogado.filter(u => {
+      if (u.tipo_usuario == 1) {
+        this.verificar = true;
+      }
+      if (u.tipo_usuario == 2) {
+        this.verificar2 = true;
+      }
+    });
   },
   computed: {
     carregarCombo: function() {

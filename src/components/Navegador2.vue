@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div v-if="this.verificar">
+      <Menu />
+    </div>
+    <div v-if="this.verificar2">
+      <menu-admin />
+    </div>
     <h3>Dados Pessoais</h3>
     <h4>Nome:</h4>
     <input type="text" v-model="nome" />
@@ -29,14 +35,19 @@
     <h4>UF:</h4>
     <input type="text" v-model="uf" />
     <button @click="cadastrar">Cadastrar</button>
-    <button @click="navegar_login">Login</button>
+    <button @click="navegar_login">Ir para Tela de Login</button>
   </div>
 </template>
 
 <script>
 const axios = require("axios");
-
+import Menu from "../components/Menu.vue";
+import MenuAdmin from "../components/MenuAdmin.vue"
 export default {
+  components: {
+    Menu,
+    MenuAdmin
+  },
   data: function() {
     return {
       nome: "",
@@ -51,41 +62,40 @@ export default {
       cidade: "",
       uf: "",
       numero: "",
-      usuarios: []
+      usuarios: [],
+      verificar: false,
+      verificar2: false
     };
   },
   methods: {
     cadastrar: function() {
-      var contador = 0
+      var contador = 0;
       this.usuarios.filter(u => {
         if (this.usuario == u.usuario) {
-          contador+=1;
-          console.log(contador);
-          console.log(this.usuario);
-          console.log(u.usuario);
+          contador += 1;
           alert("Usuario já Cadastrado");
         }
-        console.log(contador)
+        console.log(contador);
       });
       if (contador == 0) {
-          axios
-            .post("http://localhost:64088/api/Usuario/", {
-              nome: this.nome,
-              cpf: this.cpf,
-              telefone: this.telefone,
-              usuario: this.usuario,
-              senha: this.senha,
-              cep: this.cep,
-              logradouro: this.logradouro,
-              complemento: this.complemento,
-              bairro: this.bairro,
-              cidade: this.cidade,
-              uf: this.uf
-            })
-            .then(u => {
-              console.log(u.data);
-            });
-        }
+        axios
+          .post("http://localhost:64088/api/Usuario/", {
+            nome: this.nome,
+            cpf: this.cpf,
+            telefone: this.telefone,
+            usuario: this.usuario,
+            senha: this.senha,
+            cep: this.cep,
+            logradouro: this.logradouro,
+            complemento: this.complemento,
+            bairro: this.bairro,
+            cidade: this.cidade,
+            uf: this.uf
+          })
+          .then(u => {
+            console.log(u.data);
+          });
+      }
     },
     navegar_login: function() {
       this.$router.push("/");
@@ -95,6 +105,19 @@ export default {
     axios
       .get("http://localhost:64088/api/Usuario/")
       .then(u => (this.usuarios = u.data));
+    if (this.$store.state.usuarioLogado != null) {
+      this.$store.state.usuarioLogado.splice(0)
+      var usuarioSession = sessionStorage.getItem("usuarioLogado");
+      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+    }
+    this.$store.state.usuarioLogado.filter(u => {
+      if (u.tipo_usuario == 1) {
+        this.verificar = true;
+      }
+      if (u.tipo_usuario == 2) {
+        this.verificar2 = true;
+      }
+    });
   }
 };
 </script>
