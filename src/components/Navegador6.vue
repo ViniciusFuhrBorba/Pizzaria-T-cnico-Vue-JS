@@ -43,7 +43,7 @@
       </select>
     </div>
     <h4>Borda:</h4>
-    <select v-model="bordaSel">
+    <select v-model="bordaSel" class="select">
       <option value="0" selected disabled>Selecione a Borda da Pizza</option>
       <option
         v-for="borda in bordas"
@@ -100,12 +100,15 @@ export default {
       sabor4: 0,
       bordaSel: 0,
       bebidaSel: 0,
+      pagSel: 0,
       tamanhos: [],
       pizzas: [],
       bordas: [],
       bebidas: [],
       formasPag: [],
-      precosBebidas: []
+      precosBebidas: [],
+      pedido: [],
+      itensPedido: []
     };
   },
   components: {
@@ -127,7 +130,9 @@ export default {
         }
       });
     },
-    acrescentar_item() {}
+    acrescentar_item() {
+      console.log(this.bordaSel);
+    }
   },
   mounted() {
     axios

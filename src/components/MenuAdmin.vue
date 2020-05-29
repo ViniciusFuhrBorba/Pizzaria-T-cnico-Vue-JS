@@ -39,6 +39,7 @@ export default {
     },
     irSair: function(){
       this.$router.push('/')
+      this.$store.state.usuarioLogado.splice(0);
     },
     irCadastroCliente: function(){
       this.$router.push('/cadastro_usuario')
