@@ -36,12 +36,25 @@
 </template>
 
 <script>
+// const axios = require("axios");
 import Menu from "../components/Menu.vue";
 import MenuAdmin from "../components/MenuAdmin.vue";
 export default {
   components: {
     Menu,
     MenuAdmin
+  },
+  data: function() {
+    return {
+      verificar: false,
+      verificar2: false,
+      tamanhoPizza: [],
+      pizza: [],
+      bordas: [],
+      bebida: [],
+      tamanhoPrecoBebida: [],
+      formaPag: []
+    };
   },
   methods: {
     editar_pedido() {},
@@ -51,6 +64,25 @@ export default {
     }
   },
   mounted() {
+    // axios
+    //   .get("http://localhost:64088/api/TamanhoPizza/")
+    //   .then(tm => (this.tamanhoPizza = tm.data));
+    // axios
+    //   .get("http://localhost:64088/api/Pizza/")
+    //   .then(p => (this.pizza = p.pizza));
+    // axios
+    //   .get("http://localhost:64088/api/FormaPagamento/")
+    //   .then(pag => (this.formaPag = pag.data));
+    // axios
+    //   .get("http://localhost:64088/api/PrecoTamanhoBebidas/")
+    //   .then(pt => (this.tamanhoPrecoBebida = pt.data));
+    // axios
+    //   .get("http://localhost:64088/api/Bebida/")
+    //   .then(be => (this.bebida = be.data));
+    // axios
+    //   .get("http://localhost:64088/api/Borda/")
+    //   .then(b => (this.bordas = b.data));
+
     if (this.$store.state.usuarioLogado != null) {
       this.$store.state.usuarioLogado.splice(0);
       var usuarioSession = sessionStorage.getItem("usuarioLogado");
@@ -64,6 +96,11 @@ export default {
         this.verificar2 = true;
       }
     });
+  },
+  computed: {
+    carregar: function() {
+      return console.log(this.$router.params.pedidoFinal);
+    }
   }
 };
 </script>
