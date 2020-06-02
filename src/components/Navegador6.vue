@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     finalizar_pedido() {
-      this.itensPedido.push(this.pedido);
+      this.itensPedido.push();
       var pedidoFinal = this.itensPedido;
       this.$router.push({ name: "Confirmar_Pedido", params: { pedidoFinal } });
     },

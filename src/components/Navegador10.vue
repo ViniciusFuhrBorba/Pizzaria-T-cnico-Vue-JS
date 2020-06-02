@@ -16,7 +16,9 @@
           <th>Borda</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        
+      </tbody>
     </table>
     <h4>Bebidas</h4>
     <table>
