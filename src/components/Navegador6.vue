@@ -17,29 +17,29 @@
       <option
         v-for="tamanho in tamanhos"
         :key="tamanho.id"
-        :value="tamanho.tamanho"
+        :value="tamanho.id"
       >{{"Tamanho: "+tamanho.tamanho+" | Preço: "+"R$ "+tamanho.preco_tamanho}}</option>
     </select>
     <div class="sabor">
       <h4>Sabor 1:</h4>
       <select v-model="sabor1" class="select">
         <option value="0" selected disabled>Selecione o Sabor da Pizza</option>
-        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.sabor">{{pizza.sabor}}</option>
+        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.id">{{pizza.sabor}}</option>
       </select>
       <h4>Sabor 2:</h4>
       <select v-model="sabor2" class="select">
         <option value="0" selected disabled>Selecione o Sabor da Pizza</option>
-        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.sabor">{{pizza.sabor}}</option>
+        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.id">{{pizza.sabor}}</option>
       </select>
       <h4>Sabor 3:</h4>
       <select v-model="sabor3" class="select">
         <option value="0" selected disabled>Selecione o Sabor da Pizza</option>
-        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.sabor">{{pizza.sabor}}</option>
+        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.id">{{pizza.sabor}}</option>
       </select>
       <h4>Sabor 4:</h4>
       <select v-model="sabor4" class="select">
         <option value="0" selected disabled>Selecione o Sabor da Pizza</option>
-        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.sabor">{{pizza.sabor}}</option>
+        <option v-for="pizza in pizzas" :key="pizza.id" :value="pizza.id">{{pizza.sabor}}</option>
       </select>
     </div>
     <h4>Borda:</h4>
@@ -48,7 +48,7 @@
       <option
         v-for="borda in bordas"
         :key="borda.id"
-        :value="borda.borda"
+        :value="borda.id"
       >{{borda.borda+" | Preço: "+"R$ "+borda.preco_borda}}</option>
     </select>
     <h4>Observações do pedido:</h4>
@@ -57,7 +57,7 @@
     <h4>Bebida:</h4>
     <select v-model="bebidaSel">
       <option value="0" selected disabled>Selecione a Bebida</option>
-      <option v-for="bebida in bebidas" :key="bebida.id" :value="bebida.bebida">{{bebida.bebida}}</option>
+      <option v-for="bebida in bebidas" :key="bebida.id" :value="bebida.id">{{bebida.bebida}}</option>
     </select>
     <h4>Tamanho e Preço:</h4>
     <select v-model="tamonhoPrecoBebida">
@@ -65,17 +65,13 @@
       <option
         v-for="tamanhoPreco in precosBebidas"
         :key="tamanhoPreco.id"
-        :value="tamanhoPreco.tamanho"
+        :value="tamanhoPreco.id"
       >{{tamanhoPreco.tamanho+" | Preço: "+"R$ "+tamanhoPreco.preco}}</option>
     </select>
     <h4>Forma de pagamento:</h4>
     <select v-model="pagSel">
       <option value="0" selected disabled>Selecione a Forma de Pagamento</option>
-      <option
-        v-for="forma in formasPag"
-        :key="forma.id"
-        :value="forma.tipo_pagamento"
-      >{{forma.tipo_pagamento}}</option>
+      <option v-for="forma in formasPag" :key="forma.id" :value="forma.id">{{forma.tipo_pagamento}}</option>
     </select>
     <h5>Retirar na pizzaria</h5>
     <input type="checkbox" />
@@ -122,9 +118,9 @@ export default {
   },
   methods: {
     finalizar_pedido() {
-      this.itensPedido.push();
-      var pedidoFinal = this.itensPedido;
-      this.$router.push({ name: "Confirmar_Pedido", params: { pedidoFinal } });
+      var pedidoCompleto = this.pedido
+      this.$store.state.pedidoCompleto = pedidoCompleto
+      this.$router.push('/confirmar_pedido');
     },
     pesquisar_cliente1() {
       this.usuarios.filter(u => {
@@ -140,16 +136,47 @@ export default {
       });
     },
     acrescentar_item() {
-      this.pedido.push(
-        this.tamanhoSel,
-        this.sabor1,
-        this.sabor2,
-        this.sabor3,
-        this.sabor4,
-        this.bordaSel,
-        this.bebidaSel,
-        this.pagSel
-      );
+      this.itensPedido.splice(0);
+      this.tamanhos.filter(f => {
+        if (f.id == this.tamanhoSel) {
+          this.itensPedido.push(f);
+        }
+      });
+      this.pizzas.filter(p => {
+        if (p.id == this.sabor1) {
+          this.itensPedido.push(p);
+        }
+        if (p.id == this.sabor2) {
+          this.itensPedido.push(p);
+        }
+        if (p.id == this.sabor3) {
+          this.itensPedido.push(p);
+        }
+        if (p.id == this.sabor4) {
+          this.itensPedido.push(p);
+        }
+      });
+      this.bordas.filter(b => {
+        if (b.id == this.bordaSel) {
+          this.itensPedido.push(b);
+        }
+      });
+      this.bebidas.filter(be => {
+        if (be.id == this.bebidaSel) {
+          this.itensPedido.push(be);
+        }
+      });
+      this.precosBebidas.filter(pb => {
+        if (pb.id == this.tamonhoPrecoBebida) {
+          this.itensPedido.push(pb);
+        }
+      });
+      this.formasPag.filter(fp => {
+        if (fp.id == this.pagSel) {
+          this.itensPedido.push(fp);
+        }
+      });
+      this.pedido.push(this.itensPedido)
       console.log(this.pedido);
     }
   },

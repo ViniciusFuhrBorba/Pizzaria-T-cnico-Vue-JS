@@ -17,7 +17,9 @@
         </tr>
       </thead>
       <tbody>
-        
+          <tr v-for="(item , index) in this.$store.state.pedidoCompleto" :key="item.index">
+            <td>{{ item[index].tamanho }}</td>
+          </tr>
       </tbody>
     </table>
     <h4>Bebidas</h4>
@@ -55,7 +57,8 @@ export default {
       bordas: [],
       bebida: [],
       tamanhoPrecoBebida: [],
-      formaPag: []
+      formaPag: [],
+      pedidoCompleto: []
     };
   },
   methods: {
@@ -66,6 +69,8 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$store.state.pedidoCompleto)
+
     // axios
     //   .get("http://localhost:64088/api/TamanhoPizza/")
     //   .then(tm => (this.tamanhoPizza = tm.data));
@@ -84,25 +89,20 @@ export default {
     // axios
     //   .get("http://localhost:64088/api/Borda/")
     //   .then(b => (this.bordas = b.data));
-
-    if (this.$store.state.usuarioLogado != null) {
-      this.$store.state.usuarioLogado.splice(0);
-      var usuarioSession = sessionStorage.getItem("usuarioLogado");
-      this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
-    }
-    this.$store.state.usuarioLogado.filter(u => {
-      if (u.tipo_usuario == 1) {
-        this.verificar = true;
-      }
-      if (u.tipo_usuario == 2) {
-        this.verificar2 = true;
-      }
-    });
-  },
-  computed: {
-    carregar: function() {
-      return console.log(this.$router.params.pedidoFinal);
-    }
+    // if (this.$store.state.usuarioLogado != null) {
+    //   this.$store.state.usuarioLogado.splice(0);
+    //   var usuarioSession = sessionStorage.getItem("usuarioLogado");
+    //   this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
+    // }
+    // this.$store.state.usuarioLogado.filter(u => {
+    //   if (u.tipo_usuario == 1) {
+    //     this.verificar = true;
+    //   }
+    //   if (u.tipo_usuario == 2) {
+    //     this.verificar2 = true;
+    //   }
+    //   console.log(this.pedidoCompleto)
+    // });    
   }
 };
 </script>
