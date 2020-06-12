@@ -11,28 +11,43 @@
     <table>
       <thead>
         <tr>
-          <th>Sabor</th>
+          <th>Sabores</th>
           <th>Tamanho</th>
           <th>Borda</th>
         </tr>
       </thead>
       <tbody>
-          <tr v-for="(item , index) in this.$store.state.pedidoCompleto" :key="item.index">
-            <td>{{ item[index].tamanho }}</td>
-          </tr>
+        <tr v-for="item in this.$store.state.pedidoCompleto" :key="item.id">
+          <td>{{item.saborUm+" | "+item.saborDois+" | "+item.saborTres+" | "+item.saborQuatro}}</td>
+          <td>{{item.tamanho+" | "+"R$ "+item.precoTamanho}}</td>
+          <td>{{item.borda}}</td>
+        </tr>
       </tbody>
     </table>
-    <h4>Bebidas</h4>
     <table>
       <thead>
         <tr>
-          <th>Bebida</th>
-          <th>Tamanho</th>
+          <th>Bebida e Preço</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <tr v-for="item in this.$store.state.pedidoCompleto" :key="item.id">
+          <td>{{item.tamanhoPreco}}</td>
+        </tr>
+      </tbody>
     </table>
-    <h4>Forma de pagamento:</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Forma de pagamento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in this.$store.state.pedidoCompleto" :key="item.id">
+          <td>{{item.formaPag}}</td>
+        </tr>
+      </tbody>
+    </table>
     <h4>Valor:</h4>
     <button @click="editar_pedido">Editar</button>
     <button @click="finalizar_pedido">Finalizar</button>
@@ -69,40 +84,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.pedidoCompleto)
-
-    // axios
-    //   .get("http://localhost:64088/api/TamanhoPizza/")
-    //   .then(tm => (this.tamanhoPizza = tm.data));
-    // axios
-    //   .get("http://localhost:64088/api/Pizza/")
-    //   .then(p => (this.pizza = p.pizza));
-    // axios
-    //   .get("http://localhost:64088/api/FormaPagamento/")
-    //   .then(pag => (this.formaPag = pag.data));
-    // axios
-    //   .get("http://localhost:64088/api/PrecoTamanhoBebidas/")
-    //   .then(pt => (this.tamanhoPrecoBebida = pt.data));
-    // axios
-    //   .get("http://localhost:64088/api/Bebida/")
-    //   .then(be => (this.bebida = be.data));
-    // axios
-    //   .get("http://localhost:64088/api/Borda/")
-    //   .then(b => (this.bordas = b.data));
-    // if (this.$store.state.usuarioLogado != null) {
-    //   this.$store.state.usuarioLogado.splice(0);
-    //   var usuarioSession = sessionStorage.getItem("usuarioLogado");
-    //   this.$store.state.usuarioLogado.push(JSON.parse(usuarioSession));
-    // }
-    // this.$store.state.usuarioLogado.filter(u => {
-    //   if (u.tipo_usuario == 1) {
-    //     this.verificar = true;
-    //   }
-    //   if (u.tipo_usuario == 2) {
-    //     this.verificar2 = true;
-    //   }
-    //   console.log(this.pedidoCompleto)
-    // });    
   }
 };
 </script>

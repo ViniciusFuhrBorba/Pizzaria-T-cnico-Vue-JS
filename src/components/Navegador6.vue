@@ -136,44 +136,46 @@ export default {
       });
     },
     acrescentar_item() {
-      this.itensPedido.splice(0);
+      this.itensPedido = []
       this.tamanhos.filter(f => {
         if (f.id == this.tamanhoSel) {
-          this.itensPedido.push(f);
+          this.itensPedido.tamanho = f.tamanho;
+          this.itensPedido.precoTamanho = f.preco_tamanho
+          console.log(this.itensPedido)
         }
       });
       this.pizzas.filter(p => {
         if (p.id == this.sabor1) {
-          this.itensPedido.push(p);
+          this.itensPedido.saborUm = p.sabor;
         }
         if (p.id == this.sabor2) {
-          this.itensPedido.push(p);
+          this.itensPedido.saborDois = p.sabor;
         }
         if (p.id == this.sabor3) {
-          this.itensPedido.push(p);
+          this.itensPedido.saborTres = p.sabor;
         }
         if (p.id == this.sabor4) {
-          this.itensPedido.push(p);
-        }
+          this.itensPedido.saborQuatro = p.sabor;
+        } 
       });
       this.bordas.filter(b => {
         if (b.id == this.bordaSel) {
-          this.itensPedido.push(b);
+          this.itensPedido.borda = b.borda;
         }
       });
       this.bebidas.filter(be => {
         if (be.id == this.bebidaSel) {
-          this.itensPedido.push(be);
+          this.itensPedido.bebida = be.bebida;
         }
       });
       this.precosBebidas.filter(pb => {
         if (pb.id == this.tamonhoPrecoBebida) {
-          this.itensPedido.push(pb);
+          this.itensPedido.tamanhoPreco = pb.tamanho+" | "+" R$ "+pb.preco;
         }
       });
       this.formasPag.filter(fp => {
         if (fp.id == this.pagSel) {
-          this.itensPedido.push(fp);
+          this.itensPedido.formaPag = fp.tipo_pagamento;
         }
       });
       this.pedido.push(this.itensPedido)
