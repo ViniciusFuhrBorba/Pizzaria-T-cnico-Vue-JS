@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     usuarioLogado: [],
     pessoasBanco: [],
-    pedidoCompleto: []   
+    pedidoCompleto: [],
+    entregas: []
   },
   mutations: {
   },

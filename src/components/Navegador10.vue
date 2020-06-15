@@ -12,8 +12,10 @@
       <thead>
         <tr>
           <th>Sabores</th>
-          <th>Tamanho</th>
+          <th>Tamanho e Preço</th>
           <th>Borda</th>
+          <th>Bebida e Preço</th>
+          <th>Forma de pagamento</th>
         </tr>
       </thead>
       <tbody>
@@ -21,29 +23,7 @@
           <td>{{item.saborUm+" | "+item.saborDois+" | "+item.saborTres+" | "+item.saborQuatro}}</td>
           <td>{{item.tamanho+" | "+"R$ "+item.precoTamanho}}</td>
           <td>{{item.borda}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Bebida e Preço</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in this.$store.state.pedidoCompleto" :key="item.id">
           <td>{{item.tamanhoPreco}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table>
-      <thead>
-        <tr>
-          <th>Forma de pagamento</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in this.$store.state.pedidoCompleto" :key="item.id">
           <td>{{item.formaPag}}</td>
         </tr>
       </tbody>
@@ -55,7 +35,7 @@
 </template>
 
 <script>
-// const axios = require("axios");
+const axios = require("axios");
 import Menu from "../components/Menu.vue";
 import MenuAdmin from "../components/MenuAdmin.vue";
 export default {
@@ -67,26 +47,34 @@ export default {
     return {
       verificar: false,
       verificar2: false,
-      tamanhoPizza: [],
-      pizza: [],
-      bordas: [],
-      bebida: [],
-      tamanhoPrecoBebida: [],
-      formaPag: [],
       pedidoCompleto: []
     };
   },
   methods: {
-    editar_pedido() {},
+    editar_pedido() {
+      console.log(this.$store.state.pedidoCompleto)
+    },
     finalizar_pedido() {
       alert("Pedido finalizado! Obrigado pela preferência.");
+      axios.post("http://localhost:64088/api/Pedido", {
+        id_cliente: 1,
+        cliente: "Vinicius",
+        pizzaTamanhoPreco:
+          this.$store.state.pedidoCompleto.tamanho + this.$store.state.pedidoCompleto.precoTamanho,
+        sabor1: this.$store.state.pedidoCompleto.saborUm,
+        sabor2: this.$store.state.pedidoCompleto.saborDois,
+        sabor3: this.$store.state.pedidoCompleto.saborTres,
+        sabor4: this.$store.state.pedidoCompleto.saborQuatro,
+        borda: this.$store.state.pedidoCompleto.borda,
+        bebidaPreco: this.$store.state.pedidoCompleto.tamanhoPreco,
+        formaPagamento: this.$store.state.pedidoCompleto.formaPag
+      });
       this.$router.push("/c_historia");
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
 <style>
-</style>
+</style

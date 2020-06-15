@@ -62,6 +62,7 @@ export default {
     axios
       .get("http://localhost:64088/api/Entregador")
       .then(entregador => (this.entregadores = entregador.data));
+    
   }
 };
 </script>
