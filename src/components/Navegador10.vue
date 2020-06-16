@@ -47,34 +47,39 @@ export default {
     return {
       verificar: false,
       verificar2: false,
-      pedidoCompleto: []
+      pedidoCompleto: [],
+      pedidoFinalizado: []
     };
   },
   methods: {
     editar_pedido() {
-      console.log(this.$store.state.pedidoCompleto)
+      console.log(this.$store.state.pedidoCompleto);
     },
     finalizar_pedido() {
-      alert("Pedido finalizado! Obrigado pela preferência.");
-      axios.post("http://localhost:64088/api/Pedido", {
-        id_cliente: 1,
-        cliente: "Vinicius",
-        pizzaTamanhoPreco:
-          this.$store.state.pedidoCompleto.tamanho + this.$store.state.pedidoCompleto.precoTamanho,
-        sabor1: this.$store.state.pedidoCompleto.saborUm,
-        sabor2: this.$store.state.pedidoCompleto.saborDois,
-        sabor3: this.$store.state.pedidoCompleto.saborTres,
-        sabor4: this.$store.state.pedidoCompleto.saborQuatro,
-        borda: this.$store.state.pedidoCompleto.borda,
-        bebidaPreco: this.$store.state.pedidoCompleto.tamanhoPreco,
-        formaPagamento: this.$store.state.pedidoCompleto.formaPag
+      
+      this.$store.state.pedidoCompleto.forEach(el => {
+        axios.post("http://localhost:64088/api/Pedido", {
+          id_cliente: 1,
+          cliente: "Vinicius",
+          sabor1: el.saborUm,
+          sabor2: el.saborDois,
+          sabor3: el.saborTres,
+          sabor4: el.saborQuatro,
+          borda: el.borda,
+          formaPagamento: el.formaPag,
+          pizzaTamanhoPreco: el.tamanho+" R$:"+el.precoTamanho,
+          bebida: el.bebida 
+        }).then(r => {
+          console.log(r.data)
+        });              
       });
-      this.$router.push("/c_historia");
+
+      
     }
   },
   mounted() {}
 };
 </script>
-
+//conecta de novo.. fechei sem querer
 <style>
 </style

@@ -179,7 +179,6 @@ export default {
         }
       });
       this.pedido.push(this.itensPedido)
-      console.log(this.pedido);
     }
   },
   mounted() {
