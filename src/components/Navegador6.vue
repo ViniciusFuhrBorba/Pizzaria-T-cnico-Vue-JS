@@ -137,6 +137,12 @@ export default {
     },
     acrescentar_item() {
       this.itensPedido = []
+      this.dadosUsuario.filter(d => {
+        if(this.dadosUsuario != null){
+          this.itensPedido.id_cliente = d.id
+          this.itensPedido.nomeCliente = d.nome
+        }
+      })
       this.tamanhos.filter(f => {
         if (f.id == this.tamanhoSel) {
           this.itensPedido.tamanho = f.tamanho;
@@ -179,6 +185,7 @@ export default {
         }
       });
       this.pedido.push(this.itensPedido)
+      console.log(this.pedido)
     }
   },
   mounted() {
@@ -235,4 +242,4 @@ h4 {
 .select {
   margin: 0 10px 0 0px;
 }
-</style>
+</style>_

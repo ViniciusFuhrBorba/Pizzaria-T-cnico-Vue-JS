@@ -62,9 +62,6 @@ export default {
     axios
       .get("http://localhost:64088/api/Entregador")
       .then(entregador => (this.entregadores = entregador.data));
-    axios.get("http://localhost:64088/api/Pedido").then(entregas => {
-      this.$store.state.entregas = entregas.data;
-    });
   }
 };
 </script>
