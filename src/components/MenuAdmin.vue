@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button>Home</button>
     <button @click="irCadastroCliente">Cadastro Cliente</button>
     <button @click="irInfoCliente">Informações Cliente</button>
     <button @click="irCardapio">Cardápio</button>
@@ -40,6 +39,7 @@ export default {
     irSair: function(){
       this.$router.push('/')
       this.$store.state.usuarioLogado.splice(0);
+      sessionStorage.removeItem('usuarioLogado');
     },
     irCadastroCliente: function(){
       this.$router.push('/cadastro_usuario')

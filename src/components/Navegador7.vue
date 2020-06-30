@@ -57,7 +57,6 @@ export default {
         this.verificar2 = true;
       }
     });
-    console.log(this.$store.state.entregas)
   }
 };
 </script>
